@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8"/>
+    <title>The time is ...</title>
+</head>
+<body>
+{% if user %}
+<p>
+    Welcome, {{user.email()}}!
+    You can <a href="{{ logout_url }}">sign out</a>.
+</p>
+{% else %}
+<p>
+    Welcome!
+    <a href="{{ login_url }}">Sign or register</a> to customize.
+</p>
+{% endif %}
+<p>
+    You logged in from {{ host }}.<br><br>
+    The time is: {{ current_time }}.
+</p>
+{% if user %}
+<form action="/prefs" method="post">
+    <label for="tz_offset">
+        Timezone offset from UTC (can be negative):
+    </label>
+    <input name="tz_offset" id="tz_offset" type="text"
+           size="4" value="{{ userprefs.tz_offset }}"/>
+    <input type="submit" value="Set"/>
+</form>
+{% endif %}
+</body>
+</html>
